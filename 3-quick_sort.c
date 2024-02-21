@@ -1,57 +1,63 @@
 #include "sort.h"
+
 /**
-*swap - the positions of two elements into an array
-*@array: array
-*@item1: array element
-*@item2: array element
+ * *swap - positions of 2 elements into array
+ * *@array: pointing to array
+ * *@item1: array one
+ * *@item2: array two
 */
+
 void swap(int *array, ssize_t item1, ssize_t item2)
 {
-	int tmp;
+	int temp;
 
-	tmp = array[item1];
+	temp = array[item1];
 	array[item1] = array[item2];
-	array[item2] = tmp;
+	array[item2] = temp;
 }
+
 /**
- *lomuto_partition - lomuto partition sorting scheme implementation
- *@array: array
- *@first: first array element
- *@last: last array element
- *@size: size array
- *Return: return the position of the last element sorted
+ *lomuto_partition - means lomuto partition of scheme implementation
+ *@array: pointing to array
+ *@first: pointing to first array
+ *@last: pointing to last array
+ *@size: means size of array
+ *Return: returning position of last array sorted
  */
+
 int lomuto_partition(int *array, ssize_t first, ssize_t last, size_t size)
 {
-	int pivot = array[last];
-	ssize_t current = first, finder;
+	int piv = array[last];
+	ssize_t curr = first, find;
 
-	for (finder = first; finder < last; finder++)
+	for (find = first; find < last; find++)
 	{
-		if (array[finder] < pivot)
+		if (array[find] < piv)
 		{
-			if (array[current] != array[finder])
+			if (array[curr] != array[find])
 			{
-				swap(array, current, finder);
+				swap(array, curr, find);
 				print_array(array, size);
 			}
-			current++;
+			curr++;
 		}
 	}
-	if (array[current] != array[last])
+	if (array[curr] != array[last])
 	{
-		swap(array, current, last);
+		swp(array, curr, last);
 		print_array(array, size);
 	}
-	return (current);
+	return (curr);
 }
+
 /**
- *qs - qucksort algorithm implementation
- *@array: array
- *@first: first array element
- *@last: last array element
- *@size: array size
+ *qs - meaning quicksort of algorithm implementation
+ *@array: pointing to array
+ *@first: pointing to first array
+ *@last: pointing to last array
+ *@size: means size of array
  */
+
 void qs(int *array, ssize_t first, ssize_t last, int size)
 {
 	ssize_t position = 0;
@@ -65,11 +71,13 @@ void qs(int *array, ssize_t first, ssize_t last, int size)
 		qs(array, position + 1, last, size);
 	}
 }
+
 /**
- *quick_sort - prepare the terrain to quicksort algorithm
- *@array: array
- *@size: array size
+ *quick_sort - preparing terrain to quicksort algorithm
+ *@array: pointing to array
+ *@size: means size of array
  */
+
 void quick_sort(int *array, size_t size)
 {
 	if (!array || size < 2)

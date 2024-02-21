@@ -2,25 +2,25 @@
 
 /**
  * bubble_sort - sorting array of int using bubble algorithm
- * @array: printing array while swaping
+ * @array: pointing to array
  * @size: size of array
  */
 
 void bubble_sort(int *array, size_t size)
 {
-	int temp = 0;
-	size_t x, idx;
+
+	size_t i, index, tmp = 0;
 
 	if (size < 2)
 		return;
-	for (x = 0; x < size; x++)
-		for (idx = 0; idx < size; idx++)
+	for (i = 0; i < size; i++)
+		for (index = 0; index < size; index++)
 		{
-			if (array[idx] > array[idx + 1] && array[idx + 1])
+			if (array[index] > array[index + 1] && array[index + 1])
 			{
-			temp = array[idx];
-			array[idx] = array[idx + 1];
-			array[idx + 1] = temp;
+			tmp = array[index];
+			array[index] = array[index + 1];
+			array[index + 1] = tmp;
 			print_array(array, size);
 			}
 		}

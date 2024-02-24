@@ -1,86 +1,62 @@
 #include "sort.h"
 
 /**
- * *swap - positions of 2 elements into array
- * *@array: pointing to array
- * *@item1: array one
- * *@item2: array two
-*/
-
-void swap(int *array, ssize_t item1, ssize_t item2)
+ * swap - swap two array indices.
+ * @fi: first index.
+ * @si: second index.
+ */
+void swap(int *fi, int *si)
 {
-	int temp;
-
-	temp = array[item1];
-	array[item1] = array[item2];
-	array[item2] = temp;
+	int tmp = *fi;
+	*fi = *si;
+	*si = tmp;
 }
 
 /**
- *lomuto_partition - means lomuto partition of scheme implementation
- *@array: pointing to array
- *@first: pointing to first array
- *@last: pointing to last array
- *@size: means size of array
- *Return: returning position of last array sorted
+ * partition - partitioning a array and sorting it recursively.
+ * @array: the array to be sorted
+ * @start: the start index
+ * @end: the end index
+ * @size: The size of the array
  */
-
-int lomuto_partition(int *array, ssize_t first, ssize_t last, size_t size)
+void partition(int *array, int start, int end, size_t size)
 {
-	int piv = array[last];
-	ssize_t curr = first, find;
+	int pivot = array[end];
+	int pindex = start - 1;
+	int i;
 
-	for (find = first; find < last; find++)
+	if (start < end)
 	{
-		if (array[find] < piv)
+		for (i = start; i <= end - 1; i++)
 		{
-			if (array[curr] != array[find])
+			if (array[i] <= pivot)
 			{
-				swap(array, curr, find);
-				print_array(array, size);
+				pindex++;
+				if (i != pindex)
+				{
+					swap(&array[pindex], &array[i]);
+					print_array(array, size);
+				}
 			}
-			curr++;
 		}
-	}
-	if (array[curr] != array[last])
-	{
-		swp(array, curr, last);
-		print_array(array, size);
-	}
-	return (curr);
-}
-
-/**
- *qs - meaning quicksort of algorithm implementation
- *@array: pointing to array
- *@first: pointing to first array
- *@last: pointing to last array
- *@size: means size of array
- */
-
-void qs(int *array, ssize_t first, ssize_t last, int size)
-{
-	ssize_t position = 0;
-
-
-	if (first < last)
-	{
-		position = lomuto_partition(array, first, last, size);
-
-		qs(array, first, position - 1, size);
-		qs(array, position + 1, last, size);
+		if (pindex + 1 != end)
+		{
+			swap(&array[pindex + 1], &array[end]);
+			print_array(array, size);
+		}
+		partition(array, start, pindex + 1 - 1, size);
+		partition(array, pindex + 1 + 1, end, size);
 	}
 }
-
 /**
- *quick_sort - preparing terrain to quicksort algorithm
- *@array: pointing to array
- *@size: means size of array
+ * quick_sort - quick sort function
+ *
+ * @array: The array
+ * @size: The size of the array
  */
-
 void quick_sort(int *array, size_t size)
 {
-	if (!array || size < 2)
+	if (array == NULL || size < 2)
 		return;
-	qs(array, 0, size - 1, size);
+	partition(array, 0, size - 1, size);
 }

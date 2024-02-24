@@ -1,59 +1,61 @@
 #include "sort.h"
 
 /**
- * swap - swap two array indices.
- * @fi: first index.
- * @si: second index.
+ * swap - swapng 2 arrays
+ * @first: first index
+ * @second: second index
  */
-void swap(int *fi, int *si)
+void swap(int *first, int *second)
 {
-	int tmp = *fi;
-	*fi = *si;
-	*si = tmp;
+	int temp = *first;
+	*first = *second;
+	*second = temp;
 }
 
 /**
- * partition - partitioning a array and sorting it recursively.
- * @array: the array to be sorted
- * @start: the start index
- * @end: the end index
- * @size: The size of the array
+ * partition - function to partition array and sorting it
+ * @array: pointing to array to be sorted
+ * @strt: the start index
+ * @ending:pointing to  the end index
+ * @size: means size of the array
  */
-void partition(int *array, int start, int end, size_t size)
-{
-	int pivot = array[end];
-	int pindex = start - 1;
-	int i;
 
-	if (start < end)
+void partition(int *array, int strt, int ending, size_t size)
+{
+	int piv = array[ending];
+	int pindx = strt - 1;
+	int x;
+
+	if (strt < ending)
 	{
-		for (i = start; i <= end - 1; i++)
+		for (x = strt; x <= end - 1; x++)
 		{
-			if (array[i] <= pivot)
+			if (array[x] <= piv)
 			{
-				pindex++;
-				if (i != pindex)
+				pindx++;
+				if (x != pindx)
 				{
-					swap(&array[pindex], &array[i]);
+					swap(&array[pindx], &array[x]);
 					print_array(array, size);
 				}
 			}
 		}
-		if (pindex + 1 != end)
+		if (pindx + 1 != ending)
 		{
-			swap(&array[pindex + 1], &array[end]);
+			swap(&array[pindx + 1], &array[ending]);
 			print_array(array, size);
 		}
-		partition(array, start, pindex + 1 - 1, size);
-		partition(array, pindex + 1 + 1, end, size);
+		partition(array, strt, pindx + 1 - 1, size);
+		partition(array, pindx + 1 + 1, ending, size);
 	}
 }
 /**
- * quick_sort - quick sort function
+ * quick_sort - writing functio of quick sort
  *
- * @array: The array
- * @size: The size of the array
+ * @array: pointing to the array
+ * @size: means size of the array
  */
+
 void quick_sort(int *array, size_t size)
 {
 	if (array == NULL || size < 2)
